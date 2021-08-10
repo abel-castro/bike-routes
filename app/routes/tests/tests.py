@@ -1,10 +1,8 @@
-from django.shortcuts import resolve_url
 from pytest import mark
 from rest_framework import status
 
 from routes.models import Route
 from routes.tests.factories import RouteFactory
-
 
 URL = "/api/routes/"
 
