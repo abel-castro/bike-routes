@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from routes.views import RoutesViewSet
+from routes.views import HomeView, RoutesViewSet
 
 router = DefaultRouter()
 router.register(r"routes", RoutesViewSet, basename="routes")
@@ -28,4 +28,5 @@ router.register(r"routes", RoutesViewSet, basename="routes")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
+    path(r"", HomeView.as_view(), name="home"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

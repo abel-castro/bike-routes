@@ -1,0 +1,9 @@
+
+.bike-routes-background{
+    background-image: linear-gradient(257deg,#2bb8fd,#1381fa);
+}
+
+.bike-icon-title{
+    transform: rotate(-25deg);
+    top: -12px;
+}
