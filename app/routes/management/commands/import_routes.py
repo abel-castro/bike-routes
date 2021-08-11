@@ -1,5 +1,4 @@
 import json
-import logging
 
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -15,7 +14,7 @@ class Command(BaseCommand):
         return f"Route imported at {timezone.now()}"
 
     def add_arguments(self, parser):
-        parser.add_argument("--file_path", "-f", action="append", type=str)
+        parser.add_argument("file_path", type=str)
 
     def handle(self, *args, **options):
         file_path = options["file_path"]
@@ -25,10 +24,11 @@ class Command(BaseCommand):
 
         imported_routes = 0
         for data in routes:
-            Route.objects.create(
-                name=self._create_route_name(),
-                data=data,
+            route, created = Route.objects.get_or_create(
+                data=data, defaults={"name": self._create_route_name()}
             )
-            imported_routes += 1
 
-        logging.info(f"{imported_routes} routes were imported")
+            if created:
+                imported_routes += 1
+
+        print(f"{imported_routes} routes were imported")
