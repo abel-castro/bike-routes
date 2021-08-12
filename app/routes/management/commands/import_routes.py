@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def _create_route_name() -> str:
-        return f"Route imported at {timezone.now()}"
+        return f"Route imported at {timezone.now().date()}"
 
     def add_arguments(self, parser):
         parser.add_argument("file_path", type=str)
