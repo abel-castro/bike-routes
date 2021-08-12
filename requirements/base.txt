@@ -4,3 +4,4 @@ environs==9.3.1 # https://pypi.org/project/environs/#basic-usage
 django-rest-framework
 django-extensions==3.1.1
 Werkzeug==1.0.1 # required for django-extensions
+Pillow==8.3.1
