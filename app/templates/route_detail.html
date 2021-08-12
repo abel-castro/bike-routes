@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="g-4 col-xs-12">
+        <h2>{{ object.name }}</h2>
+    </div>
+</div>
+<div class="row">
+    <div id="map" class="map-container"></div>
+</div>
+
+<script>
+    var map = new maplibregl.Map({
+        container: 'map',
+        style:
+            'https://api.maptiler.com/maps/streets/style.json?key={{MAPTILER_API_KEY}}',
+        center: [16.354, 48.27571],
+        zoom: 15
+    });
+
+    map.on('load', function () {
+        map.addSource('route', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': {{ object.data.polyline.0 }}
+                }
+            }
+        });
+        map.addLayer({
+            'id': 'route',
+            'type': 'line',
+            'source': 'route',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#888',
+                'line-width': 8
+            }
+        });
+    });
+</script>
+
+{% endblock %}

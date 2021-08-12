@@ -9,3 +9,6 @@ POSTGRES_PORT=5432
 POSTGRES_DB=db_name
 POSTGRES_USER=my_user
 POSTGRES_PASSWORD=my_password
+
+# get it from here https://cloud.maptiler.com/maps/
+MAPTILER_API_KEY=YOUR_API_KEY

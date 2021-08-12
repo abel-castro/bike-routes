@@ -135,3 +135,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+MAPTILER_API_KEY = os.environ.get("MAPTILER_API_KEY")
