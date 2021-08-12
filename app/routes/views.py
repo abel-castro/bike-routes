@@ -21,5 +21,5 @@ class RouteDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['MAPTILER_API_KEY'] = settings.MAPTILER_API_KEY
+        context["MAPTILER_API_KEY"] = settings.MAPTILER_API_KEY
         return context

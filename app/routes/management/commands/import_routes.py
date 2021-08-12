@@ -15,6 +15,7 @@ class Command(BaseCommand):
 
     {"polyline": [[[lat, lng], [lat, lng], ...]]}
     """
+
     help = "Import routes from a JSON file"
 
     @staticmethod
@@ -23,9 +24,18 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("file_path", type=str)
+        parser.add_argument(
+            "--clean",
+            action="store_true",
+            help="Delete all existing routes before triggering the import.",
+        )
 
     def handle(self, *args, **options):
         file_path = options["file_path"]
+        clean = options["clean"]
+
+        if clean:
+            Route.objects.all().delete()
 
         with open(file_path) as json_file:
             routes = json.load(json_file)
@@ -39,8 +49,11 @@ class Command(BaseCommand):
         for data in routes:
             try:
                 data = data.get("polyline")[0]
+                center_coordinates = data[0]
                 route, created = Route.objects.get_or_create(
-                    data=data, defaults={"name": self._create_route_name()}
+                    data=data,
+                    center_coordinates=center_coordinates,
+                    defaults={"name": self._create_route_name()},
                 )
 
                 if created:
